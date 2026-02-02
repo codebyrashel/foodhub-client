@@ -3,6 +3,7 @@ import Link from "next/link";
 import { requireRole } from "@/lib/guards";
 import { getOrder } from "@/lib/orders";
 import { formatMoney } from "@/lib/money";
+import ReviewMealClient from "./ui/ReviewMealClient";
 
 export const dynamic = "force-dynamic";
 
@@ -90,6 +91,19 @@ export default async function OrderDetailsPage({ params }: { params: Promise<{ i
             ))}
           </div>
         </div>
+
+        {order.status === "delivered" && (
+          <div className="mt-6 space-y-3">
+            <p className="text-sm font-semibold text-slate-900">Leave a review</p>
+            <p className="text-xs text-slate-600">
+              You can review each meal once. Duplicate reviews will be blocked.
+            </p>
+
+            {order.items.map((it) => (
+              <ReviewMealClient key={it.id} mealId={it.meal.id} mealName={it.meal.name} />
+            ))}
+          </div>
+        )}
 
         <div className="mt-6">
           <CancelOrderClient orderId={order.id} status={order.status} />
