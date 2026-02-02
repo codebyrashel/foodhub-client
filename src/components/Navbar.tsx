@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/cn";
-import { Menu, X, UtensilsCrossed, ShoppingBag, User } from "lucide-react";
+import { Menu, X, UtensilsCrossed, ShoppingBag, User, LogOut, LayoutDashboard } from "lucide-react";
+import { getMe, type Me } from "@/lib/me";
+import { signOut } from "@/lib/auth-client";
 
 const navLinks = [
   { href: "/meals", label: "Meals" },
@@ -14,11 +16,43 @@ const navLinks = [
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
+
   const [open, setOpen] = useState(false);
+  const [me, setMe] = useState<Me | null>(null);
+  const [loadingMe, setLoadingMe] = useState(true);
 
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await getMe();
+        setMe(data);
+      } catch {
+        setMe(null);
+      } finally {
+        setLoadingMe(false);
+      }
+    })();
+  }, [pathname]);
+
+  const dashboardHref =
+    me?.role === "admin" ? "/admin" : me?.role === "provider" ? "/provider/dashboard" : "/orders";
+
+  async function handleLogout() {
+    try {
+      await signOut();
+    } catch {
+      // even if signout fails, we still reset UI and redirect
+    } finally {
+      setMe(null);
+      router.push("/");
+      router.refresh();
+    }
+  }
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/80 backdrop-blur">
@@ -43,9 +77,7 @@ export default function Navbar() {
                 href={l.href}
                 className={cn(
                   "rounded-xl px-3 py-2 text-sm font-medium transition",
-                  active
-                    ? "bg-slate-900 text-white"
-                    : "text-slate-700 hover:bg-slate-100",
+                  active ? "bg-slate-900 text-white" : "text-slate-700 hover:bg-slate-100",
                 )}
               >
                 {l.label}
@@ -63,13 +95,42 @@ export default function Navbar() {
             <ShoppingBag className="h-4 w-4" />
             Cart
           </Link>
-          <Link
-            href="/login"
-            className="inline-flex items-center gap-2 rounded-xl bg-orange-500 px-3 py-2 text-sm font-semibold text-white hover:bg-orange-600"
-          >
-            <User className="h-4 w-4" />
-            Login
-          </Link>
+
+          {loadingMe ? (
+            <div className="h-10 w-28 animate-pulse rounded-xl bg-slate-100" />
+          ) : me ? (
+            <>
+              <Link
+                href={dashboardHref}
+                className="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-50"
+              >
+                <LayoutDashboard className="h-4 w-4" />
+                Dashboard
+              </Link>
+              <Link
+                href="/profile"
+                className="inline-flex items-center gap-2 rounded-xl bg-orange-500 px-3 py-2 text-sm font-semibold text-white hover:bg-orange-600"
+              >
+                <User className="h-4 w-4" />
+                Profile
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-50"
+              >
+                <LogOut className="h-4 w-4" />
+                Logout
+              </button>
+            </>
+          ) : (
+            <Link
+              href="/login"
+              className="inline-flex items-center gap-2 rounded-xl bg-orange-500 px-3 py-2 text-sm font-semibold text-white hover:bg-orange-600"
+            >
+              <User className="h-4 w-4" />
+              Login
+            </Link>
+          )}
         </div>
 
         {/* Mobile toggle */}
@@ -112,13 +173,42 @@ export default function Navbar() {
                 <ShoppingBag className="h-4 w-4" />
                 Cart
               </Link>
-              <Link
-                href="/login"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-orange-500 px-3 py-2 text-sm font-semibold text-white"
-              >
-                <User className="h-4 w-4" />
-                Login
-              </Link>
+
+              {loadingMe ? (
+                <div className="h-10 animate-pulse rounded-xl bg-slate-100" />
+              ) : me ? (
+                <>
+                  <Link
+                    href={dashboardHref}
+                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-sm font-semibold"
+                  >
+                    <LayoutDashboard className="h-4 w-4" />
+                    Dashboard
+                  </Link>
+                  <Link
+                    href="/profile"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-orange-500 px-3 py-2 text-sm font-semibold text-white"
+                  >
+                    <User className="h-4 w-4" />
+                    Profile
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-sm font-semibold"
+                  >
+                    <LogOut className="h-4 w-4" />
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <Link
+                  href="/login"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-orange-500 px-3 py-2 text-sm font-semibold text-white"
+                >
+                  <User className="h-4 w-4" />
+                  Login
+                </Link>
+              )}
             </div>
           </div>
         </div>
