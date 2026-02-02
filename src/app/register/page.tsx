@@ -31,10 +31,9 @@ export default function RegisterPage() {
     try {
       await signUpEmail({ name, email, password });
 
-      // backend has autoSignIn: false, requireEmailVerification: true
-      // so we show a success hint and send user to login
-      // If role chosen is provider, we will onboard after login
-      router.push(`/login?registered=1&role=${role}`);
+      //backend has autoSignIn: false, requireEmailVerification: true
+      // so we show a success hint and send user to verify email page
+      router.push("/verify-email-sent");
     } catch (err: any) {
       setError(err?.message || "Registration failed");
     } finally {
@@ -63,11 +62,10 @@ export default function RegisterPage() {
               <button
                 type="button"
                 onClick={() => setRole("customer")}
-                className={`rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition ${
-                  role === "customer"
-                    ? "border-slate-900 bg-slate-900 text-white"
-                    : "border-slate-200 bg-white text-slate-900 hover:bg-slate-50"
-                }`}
+                className={`rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition ${role === "customer"
+                  ? "border-slate-900 bg-slate-900 text-white"
+                  : "border-slate-200 bg-white text-slate-900 hover:bg-slate-50"
+                  }`}
               >
                 Customer
                 <p className={`mt-1 text-xs font-normal ${role === "customer" ? "text-white/80" : "text-slate-600"}`}>
@@ -78,11 +76,10 @@ export default function RegisterPage() {
               <button
                 type="button"
                 onClick={() => setRole("provider")}
-                className={`rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition ${
-                  role === "provider"
-                    ? "border-slate-900 bg-slate-900 text-white"
-                    : "border-slate-200 bg-white text-slate-900 hover:bg-slate-50"
-                }`}
+                className={`rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition ${role === "provider"
+                  ? "border-slate-900 bg-slate-900 text-white"
+                  : "border-slate-200 bg-white text-slate-900 hover:bg-slate-50"
+                  }`}
               >
                 Provider
                 <p className={`mt-1 text-xs font-normal ${role === "provider" ? "text-white/80" : "text-slate-600"}`}>
