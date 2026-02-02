@@ -43,3 +43,19 @@ export function getMeals(query: MealsQuery = {}) {
   const qs = params.toString();
   return apiFetch<Meal[]>(`/api/meals${qs ? `?${qs}` : ""}`, { method: "GET" });
 }
+
+export type Review = {
+  id: string;
+  rating: number;
+  comment: string | null;
+  createdAt: string;
+  customer: { id: string; name: string; image: string | null };
+};
+
+export type MealDetails = Meal & {
+  reviews: Review[];
+};
+
+export function getMeal(id: string) {
+  return apiFetch<MealDetails>(`/api/meals/${id}`, { method: "GET" });
+}
