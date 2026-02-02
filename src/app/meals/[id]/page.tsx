@@ -74,7 +74,7 @@ export default async function MealDetailsPage({ params }: { params: Promise<{ id
                 {meal.isAvailable ? "Available" : "Unavailable"}
               </span>
               <Link
-                href={`/providers/${meal.provider.id}`}
+                href={`/providers/${meal.provider.id}` as any}
                 className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-50"
               >
                 View provider →
