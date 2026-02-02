@@ -49,7 +49,7 @@ export default function LoginPage() {
     <div className="mx-auto grid max-w-5xl gap-6 lg:grid-cols-2">
       <div className="hidden overflow-hidden rounded-3xl border border-slate-200 bg-white lg:block">
         <div
-          className="h-full min-h-[520px] bg-cover bg-center"
+          className="h-full min-h-130 bg-cover bg-center"
           style={{
             backgroundImage:
               "url(https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=1400&q=80)",

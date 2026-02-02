@@ -1,11 +1,11 @@
 import Link from "next/link";
 
-export default function ForbiddenPage() {
+export default function NotFound() {
   return (
     <div className="rounded-3xl border border-slate-200 bg-white p-10 text-center">
-      <h1 className="text-lg font-bold text-slate-900">Forbidden</h1>
+      <p className="text-base font-semibold text-slate-900">Page not found</p>
       <p className="mt-2 text-sm text-slate-600">
-        You do not have permission to access this page.
+        The page you’re looking for does not exist or was moved.
       </p>
       <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
         <Link
@@ -15,10 +15,10 @@ export default function ForbiddenPage() {
           Go home
         </Link>
         <Link
-          href="/login"
+          href="/meals"
           className="inline-flex h-11 items-center justify-center rounded-2xl border border-slate-200 px-5 text-sm font-semibold text-slate-900 hover:bg-slate-50"
         >
-          Login
+          Browse meals
         </Link>
       </div>
     </div>
