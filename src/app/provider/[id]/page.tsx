@@ -30,7 +30,7 @@ export default async function ProviderDetailsPage({ params }: { params: Promise<
   return (
     <div className="space-y-6">
       <div className="text-sm text-slate-600">
-        <Link className="font-semibold text-orange-600 hover:text-orange-700" href="/providers">
+        <Link className="font-semibold text-orange-600 hover:text-orange-700" href="/provider">
           ← Back to providers
         </Link>
       </div>

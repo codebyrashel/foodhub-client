@@ -59,7 +59,7 @@ export default function HomePage() {
                 Browse Meals
               </Link>
               <Link
-                href="/providers"
+                href="/provider"
                 className="inline-flex items-center justify-center rounded-2xl bg-white/10 px-5 py-3 text-sm font-semibold text-white ring-1 ring-white/25 hover:bg-white/15"
               >
                 Explore Providers

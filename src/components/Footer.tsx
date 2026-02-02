@@ -16,7 +16,7 @@ export default function Footer() {
           <p className="text-sm font-semibold text-slate-900">Explore</p>
           <ul className="mt-3 space-y-2 text-sm text-slate-600">
             <li><Link className="hover:text-slate-900" href="/meals">Meals</Link></li>
-            <li><Link className="hover:text-slate-900" href="/providers">Providers</Link></li>
+            <li><Link className="hover:text-slate-900" href="/provider">Providers</Link></li>
             <li><Link className="hover:text-slate-900" href="/categories">Categories</Link></li>
           </ul>
         </div>

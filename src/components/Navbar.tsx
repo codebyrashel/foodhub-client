@@ -8,9 +8,11 @@ import { Menu, X, UtensilsCrossed, ShoppingBag, User, LogOut, LayoutDashboard } 
 import { getMe, type Me } from "@/lib/me";
 import { signOut } from "@/lib/auth-client";
 
-const navLinks = [
+import type { Route } from "next";
+
+const navLinks: { href: Route; label: string }[] = [
   { href: "/meals", label: "Meals" },
-  { href: "/providers", label: "Providers" },
+  { href: "/provider", label: "Providers" },
   { href: "/categories", label: "Categories" },
 ];
 

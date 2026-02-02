@@ -65,16 +65,15 @@ export default async function MealDetailsPage({ params }: { params: Promise<{ id
 
             <div className="mt-5 flex flex-wrap gap-2">
               <span
-                className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                  meal.isAvailable
+                className={`rounded-full px-3 py-1 text-xs font-semibold ${meal.isAvailable
                     ? "bg-emerald-50 text-emerald-700"
                     : "bg-slate-100 text-slate-600"
-                }`}
+                  }`}
               >
                 {meal.isAvailable ? "Available" : "Unavailable"}
               </span>
               <Link
-                href={`/providers/${meal.provider.id}` as any}
+                href={`/provider/${meal.provider.id}`}
                 className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-50"
               >
                 View provider →

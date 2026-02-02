@@ -49,7 +49,7 @@ export default async function ProvidersPage() {
             return (
               <Link
                 key={p.id}
-                href={`/providers/${p.id}`}
+                href={`/provider/${p.id}`}
                 className='group overflow-hidden rounded-3xl border border-slate-200 bg-white transition hover:shadow-sm'>
                 <div
                   className='h-40 bg-cover bg-center transition group-hover:scale-[1.02]'
