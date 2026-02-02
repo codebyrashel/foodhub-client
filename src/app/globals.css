@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+
+:root {
+  --bg: 255 255 255;
+}
+
+body {
+  @apply bg-white text-slate-900 antialiased;
+}
+
+/* subtle background grid */
+.bg-foodhub {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(15, 23, 42, 0.08) 1px, transparent 0);
+  background-size: 28px 28px;
+}
