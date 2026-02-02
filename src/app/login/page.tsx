@@ -17,7 +17,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function onSubmit(e: React.FormEvent) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError(null);
     setLoading(true);
@@ -34,12 +34,13 @@ export default function LoginPage() {
 
       if (me.role === "admin") router.push("/admin");
       else if (me.role === "provider") {
-        router.push(me.providerProfile ? "/provider/dashboard" : "/onboarding/provider");
+        router.push(me.providerProfile ? "/provider/dashboard" : "/onboarding/providers");
       } else {
         router.push("/meals");
       }
-    } catch (err: any) {
-      setError(err?.message || "Login failed");
+    } catch (err: Error | unknown) {
+      const error = err instanceof Error ? err : new Error(String(err));
+      setError(error?.message || "Login failed");
     } finally {
       setLoading(false);
     }
